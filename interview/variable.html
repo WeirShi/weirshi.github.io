@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>var、let、const的区别 | 前端封神之路</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <meta name="description" content="记录学习的前端知识">
+    
+    <link rel="preload" href="/assets/css/0.styles.7cfabf05.css" as="style"><link rel="preload" href="/assets/js/app.158babe9.js" as="script"><link rel="preload" href="/assets/js/2.e5ab2b68.js" as="script"><link rel="preload" href="/assets/js/51.14902ff0.js" as="script"><link rel="prefetch" href="/assets/js/10.b4c0db63.js"><link rel="prefetch" href="/assets/js/11.8aed1a09.js"><link rel="prefetch" href="/assets/js/12.afb0f515.js"><link rel="prefetch" href="/assets/js/13.764a05b7.js"><link rel="prefetch" href="/assets/js/14.a85fac83.js"><link rel="prefetch" href="/assets/js/15.5a34a312.js"><link rel="prefetch" href="/assets/js/16.616acebe.js"><link rel="prefetch" href="/assets/js/17.b151816d.js"><link rel="prefetch" href="/assets/js/18.4da96aeb.js"><link rel="prefetch" href="/assets/js/19.19c3a885.js"><link rel="prefetch" href="/assets/js/20.4cbd67fd.js"><link rel="prefetch" href="/assets/js/21.9d3c805a.js"><link rel="prefetch" href="/assets/js/22.0aa61314.js"><link rel="prefetch" href="/assets/js/23.67726a09.js"><link rel="prefetch" href="/assets/js/24.d2e47889.js"><link rel="prefetch" href="/assets/js/25.e4932049.js"><link rel="prefetch" href="/assets/js/26.4586e6ae.js"><link rel="prefetch" href="/assets/js/27.9e089256.js"><link rel="prefetch" href="/assets/js/28.d983bae5.js"><link rel="prefetch" href="/assets/js/29.e5fd6087.js"><link rel="prefetch" href="/assets/js/3.cf4fe386.js"><link rel="prefetch" href="/assets/js/30.7cd84f39.js"><link rel="prefetch" href="/assets/js/31.c3c02398.js"><link rel="prefetch" href="/assets/js/32.0bf7858a.js"><link rel="prefetch" href="/assets/js/33.4c879589.js"><link rel="prefetch" href="/assets/js/34.e6f0b7eb.js"><link rel="prefetch" href="/assets/js/35.9cf30312.js"><link rel="prefetch" href="/assets/js/36.3683229a.js"><link rel="prefetch" href="/assets/js/37.b195b901.js"><link rel="prefetch" href="/assets/js/38.33d01f20.js"><link rel="prefetch" href="/assets/js/39.95c9b9ce.js"><link rel="prefetch" href="/assets/js/4.3af4e00b.js"><link rel="prefetch" href="/assets/js/40.822646e1.js"><link rel="prefetch" href="/assets/js/41.560e309d.js"><link rel="prefetch" href="/assets/js/42.f0217729.js"><link rel="prefetch" href="/assets/js/43.2b0119d2.js"><link rel="prefetch" href="/assets/js/44.e73d86f1.js"><link rel="prefetch" href="/assets/js/45.965181bb.js"><link rel="prefetch" href="/assets/js/46.9e68f20c.js"><link rel="prefetch" href="/assets/js/47.e40960ba.js"><link rel="prefetch" href="/assets/js/48.ec8a39b8.js"><link rel="prefetch" href="/assets/js/49.9dd3bc86.js"><link rel="prefetch" href="/assets/js/5.d91f4f80.js"><link rel="prefetch" href="/assets/js/50.2a9c345d.js"><link rel="prefetch" href="/assets/js/52.b4af6955.js"><link rel="prefetch" href="/assets/js/53.8be53f51.js"><link rel="prefetch" href="/assets/js/54.65b8671d.js"><link rel="prefetch" href="/assets/js/55.dbb35887.js"><link rel="prefetch" href="/assets/js/56.ebb07935.js"><link rel="prefetch" href="/assets/js/57.637c25bd.js"><link rel="prefetch" href="/assets/js/58.a4f85915.js"><link rel="prefetch" href="/assets/js/59.13f48c95.js"><link rel="prefetch" href="/assets/js/6.4ea0f282.js"><link rel="prefetch" href="/assets/js/60.1fefb9ca.js"><link rel="prefetch" href="/assets/js/61.668765a5.js"><link rel="prefetch" href="/assets/js/7.484f9988.js"><link rel="prefetch" href="/assets/js/8.8b0fd735.js"><link rel="prefetch" href="/assets/js/9.cd6b9895.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.7cfabf05.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">前端封神之路</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="日常开发记录" class="dropdown-title"><span class="title">日常开发记录</span> <span class="arrow down"></span></button> <button type="button" aria-label="日常开发记录" class="mobile-dropdown-title"><span class="title">日常开发记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/daily/js/utils.html" class="nav-link">
+  JS相关
+</a></li><li class="dropdown-item"><!----> <a href="/daily/node/pm2.html" class="nav-link">
+  node相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/html/html5.html" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/css/bfc.html" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/base/operator.html" class="nav-link">
+  JS基础
+</a></li><li class="dropdown-item"><!----> <a href="/realize/realize-indexof.html" class="nav-link">
+  手写题
+</a></li><li class="dropdown-item"><!----> <a href="/interview/this.html" class="nav-link">
+  面试题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="框架源码解读" class="dropdown-title"><span class="title">框架源码解读</span> <span class="arrow down"></span></button> <button type="button" aria-label="框架源码解读" class="mobile-dropdown-title"><span class="title">框架源码解读</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/framework/Vue/2.x/vue.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/framework/React/lifecircle.html" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/framework/Webpack/webpack.html" class="nav-link">
+  Webpack
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/WeirShi/vuepress-blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  苏ICP备19022770号-1
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="日常开发记录" class="dropdown-title"><span class="title">日常开发记录</span> <span class="arrow down"></span></button> <button type="button" aria-label="日常开发记录" class="mobile-dropdown-title"><span class="title">日常开发记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/daily/js/utils.html" class="nav-link">
+  JS相关
+</a></li><li class="dropdown-item"><!----> <a href="/daily/node/pm2.html" class="nav-link">
+  node相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/html/html5.html" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/css/bfc.html" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/base/operator.html" class="nav-link">
+  JS基础
+</a></li><li class="dropdown-item"><!----> <a href="/realize/realize-indexof.html" class="nav-link">
+  手写题
+</a></li><li class="dropdown-item"><!----> <a href="/interview/this.html" class="nav-link">
+  面试题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="框架源码解读" class="dropdown-title"><span class="title">框架源码解读</span> <span class="arrow down"></span></button> <button type="button" aria-label="框架源码解读" class="mobile-dropdown-title"><span class="title">框架源码解读</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/framework/Vue/2.x/vue.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/framework/React/lifecircle.html" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/framework/Webpack/webpack.html" class="nav-link">
+  Webpack
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/WeirShi/vuepress-blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  苏ICP备19022770号-1
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>面试遇到过的问题</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/interview/this.html" class="sidebar-link">this、作用域相关题目</a></li><li><a href="/interview/variable.html" aria-current="page" class="active sidebar-link">var、const、let</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/interview/variable.html#var、let、const的区别" class="sidebar-link">var、let、const的区别</a></li><li class="sidebar-sub-header"><a href="/interview/variable.html#es6中提出的块级作用域-是为了解决什么问题" class="sidebar-link">ES6中提出的块级作用域 {} 是为了解决什么问题？</a></li></ul></li><li><a href="/interview/Object.prototype.toString.html" class="sidebar-link">Object.prototype.toString</a></li><li><a href="/interview/decimals.html" class="sidebar-link">0.1+0.2!==0.3</a></li><li><a href="/interview/curry.html" class="sidebar-link">函数柯里化</a></li><li><a href="/interview/clock-swing.html" class="sidebar-link">45度钟摆来回摆动</a></li><li><a href="/interview/url.html" class="sidebar-link">用户输入url后，浏览器发生了什么？</a></li><li><a href="/interview/promise.html" class="sidebar-link">Promise</a></li><li><a href="/interview/event-loop.html" class="sidebar-link">EventLoop</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="var、let、const的区别"><a href="#var、let、const的区别" class="header-anchor">#</a> var、let、const的区别</h2> <p>浏览器遇到var声明的变量时，会进行变量提升的情况，</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token comment">// 打印undefined</span>
+<span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span>
+</code></pre></div><p>这里可以看出，变量a还没有被声明就已经可以访问这个变量，只是这个变量还没有被赋值，这种情况，可以看作</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">var</span> a
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token comment">// 打印undefined</span>
+a <span class="token operator">=</span> <span class="token number">1</span>
+</code></pre></div><p>变量会声明提前，函数也一样</p> <p>如果使用<code>let</code>和<code>const</code></p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+</code></pre></div><div class="language-javascript extra-class"><pre class="language-javascript"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+<span class="token keyword">const</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+</code></pre></div><p><img src="/assets/images/variable.jpg" alt=""><br>
+就会出现报错</p> <ul><li>var 存在提升，我们能在声明之前使用。let、const 因为暂时性死区的原因，不能在声明前使用</li> <li>var 在全局作用域下声明变量会导致变量挂载在 window 上，其他两者不会</li> <li>let 和 const 作用基本一致，但是后者声明的变量不能再次赋值</li></ul> <h2 id="es6中提出的块级作用域-是为了解决什么问题"><a href="#es6中提出的块级作用域-是为了解决什么问题" class="header-anchor">#</a> ES6中提出的块级作用域 <code>{}</code> 是为了解决什么问题？</h2> <p>块级作用域：保护了局部变量不会污染全局变量
+ES6中声明变量的方式新增了let和const关键字，这2种方式都会被限制在块级作用域中</p> <p>在ES5之前，作用域只被分为了函数作用域和全局作用域
+有时候如果想在函数内添加一些临时的变量，我们会将局部代码封装到IIFE(自执行函数)中</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">fn</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+  <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> temp
+    temp <span class="token operator">=</span> a
+    a <span class="token operator">=</span> b
+    b <span class="token operator">=</span> temp
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>有了块级作用域后，上面的代码就不需要进行封装</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> a<span class="token punctuation">,</span> b
+  <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> temp
+    temp <span class="token operator">=</span> a
+    a <span class="token operator">=</span> b
+    b <span class="token operator">=</span> temp
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">4/8/2021, 12:04:51 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/interview/this.html" class="prev">
+        this、作用域相关题目
+      </a></span> <span class="next"><a href="/interview/Object.prototype.toString.html">
+        Object.prototype.toString
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.158babe9.js" defer></script><script src="/assets/js/2.e5ab2b68.js" defer></script><script src="/assets/js/51.14902ff0.js" defer></script>
+  </body>
+</html>

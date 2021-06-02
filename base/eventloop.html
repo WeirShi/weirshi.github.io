@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JS中的EventLoop | 前端封神之路</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <meta name="description" content="记录学习的前端知识">
+    
+    <link rel="preload" href="/assets/css/0.styles.7cfabf05.css" as="style"><link rel="preload" href="/assets/js/app.158babe9.js" as="script"><link rel="preload" href="/assets/js/2.e5ab2b68.js" as="script"><link rel="preload" href="/assets/js/16.616acebe.js" as="script"><link rel="prefetch" href="/assets/js/10.b4c0db63.js"><link rel="prefetch" href="/assets/js/11.8aed1a09.js"><link rel="prefetch" href="/assets/js/12.afb0f515.js"><link rel="prefetch" href="/assets/js/13.764a05b7.js"><link rel="prefetch" href="/assets/js/14.a85fac83.js"><link rel="prefetch" href="/assets/js/15.5a34a312.js"><link rel="prefetch" href="/assets/js/17.b151816d.js"><link rel="prefetch" href="/assets/js/18.4da96aeb.js"><link rel="prefetch" href="/assets/js/19.19c3a885.js"><link rel="prefetch" href="/assets/js/20.4cbd67fd.js"><link rel="prefetch" href="/assets/js/21.9d3c805a.js"><link rel="prefetch" href="/assets/js/22.0aa61314.js"><link rel="prefetch" href="/assets/js/23.67726a09.js"><link rel="prefetch" href="/assets/js/24.d2e47889.js"><link rel="prefetch" href="/assets/js/25.e4932049.js"><link rel="prefetch" href="/assets/js/26.4586e6ae.js"><link rel="prefetch" href="/assets/js/27.9e089256.js"><link rel="prefetch" href="/assets/js/28.d983bae5.js"><link rel="prefetch" href="/assets/js/29.e5fd6087.js"><link rel="prefetch" href="/assets/js/3.cf4fe386.js"><link rel="prefetch" href="/assets/js/30.7cd84f39.js"><link rel="prefetch" href="/assets/js/31.c3c02398.js"><link rel="prefetch" href="/assets/js/32.0bf7858a.js"><link rel="prefetch" href="/assets/js/33.4c879589.js"><link rel="prefetch" href="/assets/js/34.e6f0b7eb.js"><link rel="prefetch" href="/assets/js/35.9cf30312.js"><link rel="prefetch" href="/assets/js/36.3683229a.js"><link rel="prefetch" href="/assets/js/37.b195b901.js"><link rel="prefetch" href="/assets/js/38.33d01f20.js"><link rel="prefetch" href="/assets/js/39.95c9b9ce.js"><link rel="prefetch" href="/assets/js/4.3af4e00b.js"><link rel="prefetch" href="/assets/js/40.822646e1.js"><link rel="prefetch" href="/assets/js/41.560e309d.js"><link rel="prefetch" href="/assets/js/42.f0217729.js"><link rel="prefetch" href="/assets/js/43.2b0119d2.js"><link rel="prefetch" href="/assets/js/44.e73d86f1.js"><link rel="prefetch" href="/assets/js/45.965181bb.js"><link rel="prefetch" href="/assets/js/46.9e68f20c.js"><link rel="prefetch" href="/assets/js/47.e40960ba.js"><link rel="prefetch" href="/assets/js/48.ec8a39b8.js"><link rel="prefetch" href="/assets/js/49.9dd3bc86.js"><link rel="prefetch" href="/assets/js/5.d91f4f80.js"><link rel="prefetch" href="/assets/js/50.2a9c345d.js"><link rel="prefetch" href="/assets/js/51.14902ff0.js"><link rel="prefetch" href="/assets/js/52.b4af6955.js"><link rel="prefetch" href="/assets/js/53.8be53f51.js"><link rel="prefetch" href="/assets/js/54.65b8671d.js"><link rel="prefetch" href="/assets/js/55.dbb35887.js"><link rel="prefetch" href="/assets/js/56.ebb07935.js"><link rel="prefetch" href="/assets/js/57.637c25bd.js"><link rel="prefetch" href="/assets/js/58.a4f85915.js"><link rel="prefetch" href="/assets/js/59.13f48c95.js"><link rel="prefetch" href="/assets/js/6.4ea0f282.js"><link rel="prefetch" href="/assets/js/60.1fefb9ca.js"><link rel="prefetch" href="/assets/js/61.668765a5.js"><link rel="prefetch" href="/assets/js/7.484f9988.js"><link rel="prefetch" href="/assets/js/8.8b0fd735.js"><link rel="prefetch" href="/assets/js/9.cd6b9895.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.7cfabf05.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">前端封神之路</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="日常开发记录" class="dropdown-title"><span class="title">日常开发记录</span> <span class="arrow down"></span></button> <button type="button" aria-label="日常开发记录" class="mobile-dropdown-title"><span class="title">日常开发记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/daily/js/utils.html" class="nav-link">
+  JS相关
+</a></li><li class="dropdown-item"><!----> <a href="/daily/node/pm2.html" class="nav-link">
+  node相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/html/html5.html" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/css/bfc.html" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/base/operator.html" class="nav-link">
+  JS基础
+</a></li><li class="dropdown-item"><!----> <a href="/realize/realize-indexof.html" class="nav-link">
+  手写题
+</a></li><li class="dropdown-item"><!----> <a href="/interview/this.html" class="nav-link">
+  面试题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="框架源码解读" class="dropdown-title"><span class="title">框架源码解读</span> <span class="arrow down"></span></button> <button type="button" aria-label="框架源码解读" class="mobile-dropdown-title"><span class="title">框架源码解读</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/framework/Vue/2.x/vue.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/framework/React/lifecircle.html" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/framework/Webpack/webpack.html" class="nav-link">
+  Webpack
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/WeirShi/vuepress-blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  苏ICP备19022770号-1
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="日常开发记录" class="dropdown-title"><span class="title">日常开发记录</span> <span class="arrow down"></span></button> <button type="button" aria-label="日常开发记录" class="mobile-dropdown-title"><span class="title">日常开发记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/daily/js/utils.html" class="nav-link">
+  JS相关
+</a></li><li class="dropdown-item"><!----> <a href="/daily/node/pm2.html" class="nav-link">
+  node相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/html/html5.html" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/css/bfc.html" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/base/operator.html" class="nav-link">
+  JS基础
+</a></li><li class="dropdown-item"><!----> <a href="/realize/realize-indexof.html" class="nav-link">
+  手写题
+</a></li><li class="dropdown-item"><!----> <a href="/interview/this.html" class="nav-link">
+  面试题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="框架源码解读" class="dropdown-title"><span class="title">框架源码解读</span> <span class="arrow down"></span></button> <button type="button" aria-label="框架源码解读" class="mobile-dropdown-title"><span class="title">框架源码解读</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/framework/Vue/2.x/vue.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/framework/React/lifecircle.html" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/framework/Webpack/webpack.html" class="nav-link">
+  Webpack
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/WeirShi/vuepress-blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  苏ICP备19022770号-1
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>JS基础</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/base/operator.html" class="sidebar-link">常用运算符</a></li><li><a href="/base/datatype.html" class="sidebar-link">数据类型</a></li><li><a href="/base/type-conversion.html" class="sidebar-link">类型转换</a></li><li><a href="/base/this.html" class="sidebar-link">this指向问题</a></li><li><a href="/base/scope.html" class="sidebar-link">作用域</a></li><li><a href="/base/closure.html" class="sidebar-link">闭包问题</a></li><li><a href="/base/param.html" class="sidebar-link">参数传递</a></li><li><a href="/base/prototype.html" class="sidebar-link">原型和继承</a></li><li><a href="/base/create-object.html" class="sidebar-link">创建对象的多种方式</a></li><li><a href="/base/clone.html" class="sidebar-link">深浅拷贝</a></li><li><a href="/base/curry.html" class="sidebar-link">函数柯里化</a></li><li><a href="/base/eventloop.html" aria-current="page" class="active sidebar-link">EventLoop事件循环机制</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/base/eventloop.html#浏览器中的eventloop" class="sidebar-link">浏览器中的EventLoop</a></li><li class="sidebar-sub-header"><a href="/base/eventloop.html#代码解析" class="sidebar-link">代码解析</a></li><li class="sidebar-sub-header"><a href="/base/eventloop.html#async-await" class="sidebar-link">async/await</a></li></ul></li><li><a href="/base/jsbridge.html" class="sidebar-link">JsBridge</a></li><li><a href="/base/es6.html" class="sidebar-link">ES6的新特性</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="js中的eventloop"><a href="#js中的eventloop" class="header-anchor">#</a> JS中的EventLoop</h1> <h2 id="浏览器中的eventloop"><a href="#浏览器中的eventloop" class="header-anchor">#</a> 浏览器中的EventLoop</h2> <ol><li><p>JS是单线程的，比如在操作Dom的时候，不能删除一个Dom节点的同时再去操作同一个Dom节点。或者在进行一个网络请求的时候，我们往往需要等待这个请求完成之后才能对请求回来的数据进行Dom的渲染。<br>
+那浏览器到底是如何协调这些事件、交互的呢？这个时候就要用到EventLoop-事件循环机制了。</p></li> <li><p>任务队列</p></li></ol> <ul><li>JS中有个任务队列的概念</li> <li>JS中将任务主要分为宏任务(macrotask)和微任务(microtask)
+<ul><li>宏任务(macrotask): script脚本，request回调，event事件回调，setTimeour, setInterval, setImmediate(node环境)、I/O、UI rendering</li> <li>微任务(microtask): Promise，process.nextTick(node)</li></ul></li></ul> <ol start="3"><li>执行步骤</li></ol> <ul><li>同一个上下文中，执行顺序是同步代码 -&gt; 微任务 -&gt; 宏任务</li></ul> <h2 id="代码解析"><a href="#代码解析" class="header-anchor">#</a> 代码解析</h2> <div class="language-javascript extra-class"><pre class="language-javascript"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;start&quot;</span><span class="token punctuation">)</span>
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;timer1&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">resolve</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;promise start&quot;</span><span class="token punctuation">)</span>
+      <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;promise1&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;timer2&quot;</span><span class="token punctuation">)</span>
+    Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;promise2&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;end&quot;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 浏览器输出</span>
+<span class="token comment">// start</span>
+<span class="token comment">// end</span>
+<span class="token comment">// timer1</span>
+<span class="token comment">// promise start</span>
+<span class="token comment">// promise1</span>
+<span class="token comment">// timer2</span>
+<span class="token comment">// promise2</span>
+</code></pre></div><p>结果分析：<br>
+在同一个上下文中，从上到下依次执行，首先遇到<code>console.log(&quot;start&quot;)</code>同步代码，先执行同步代码，所以第一个输出<code>start</code>，向下遇到第一个<code>setTimeout</code>为宏任务，塞进宏任务队列，第二个<code>setTimeout</code>同理，最后又遇到<code>console.log(&quot;end&quot;)</code>同步代码，执行并输入<code>end</code>。<br>
+同步任务完成后，JS执行栈为空，检查微任务也为空，检查宏任务中存在需要执行的任务，所以按先进先出的规则执行宏任务队列，首先执行第一个<code>setTimeout</code>，进来首先是<code>console.log(&quot;timer1&quot;)</code>同步代码，所以执行并输入<code>timer1</code>，然后执行<code>new Promise</code>, <code>new Promise</code>中首先是<code>console.log(&quot;promise start&quot;)</code>，输出<code>promise start</code>，接着执行了<code>resolve</code>, <code>Promise.then</code>同样属于微任务，塞入微任务中挂起。这一轮宏任务执行完成，检查微任务，存在<code>Promise.then</code>,执行并输出<code>promise1</code>。
+执行完成后，JS执行栈为空，继续查找宏任务，执行第二个<code>setTimeout</code>，输出<code>timer2</code>，遇到<code>Promise.resolve.then</code>微任务，塞入微任务挂起，<code>setTimeout</code>执行完成，检查微任务,执行输出<code>promise2</code>。</p> <h2 id="async-await"><a href="#async-await" class="header-anchor">#</a> async/await</h2> <p><code>async/await</code> 是ES7中推出的语法糖，是针对ES6<code>generate/yield</code>的语法糖，<code>async</code>返回的同样是一个Promise对象，遇到<code>await</code>就会等待异步操作完成，再继续执行后面的语句。<strong>注意：<code>await</code>命令后面的<code>Promise</code>对象，运行结果可能是<code>rejected</code>，所以最好把<code>await</code>命令放在<code>try...catch</code>代码块中。</strong></p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">4/26/2021, 6:07:35 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/base/curry.html" class="prev">
+        函数柯里化
+      </a></span> <span class="next"><a href="/base/jsbridge.html">
+        JsBridge
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.158babe9.js" defer></script><script src="/assets/js/2.e5ab2b68.js" defer></script><script src="/assets/js/16.616acebe.js" defer></script>
+  </body>
+</html>
